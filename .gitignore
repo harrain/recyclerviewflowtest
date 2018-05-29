@@ -34,7 +34,7 @@ proguard/
 captures/
 
 # Intellij
-*.iml
+
 .idea/
 *.ipr
 *.iws
