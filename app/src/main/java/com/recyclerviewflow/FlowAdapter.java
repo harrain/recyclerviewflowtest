@@ -2,6 +2,8 @@ package com.recyclerviewflow;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,7 +60,12 @@ public class FlowAdapter extends MultiItemTypeAdapter<FlowModel> {
             @Override
             public void convert(ViewHolder holder, FlowModel flowModel, final int position) {
                 holder.setText(R.id.name,flowModel.title);
-                final ImageView imageView = (ImageView) holder.getView(R.id.imageview);
+                final ScaleImageView imageView = (ScaleImageView) holder.getView(R.id.imageview);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeResource(mContext.getResources(),flowModel.resId,options);
+                Log.i("FlowAdapter","outwidth "+options.outWidth+"  outheight "+options.outHeight);
+                imageView.setInitSize(options.outWidth,options.outHeight);
                 Glide.with(context).load(flowModel.resId).into(imageView);
 //                Glide.with(context).load(、flowModel.resId).asBitmap().into(new BitmapImageViewTarget(imageView){
 //                    @Override

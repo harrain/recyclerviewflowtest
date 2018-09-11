@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         datas = new ArrayList<>();
         random = new Random();
-        prepareData();
+
 
         recyclerView = findViewById(R.id.rv);
         layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
@@ -80,9 +80,12 @@ public class MainActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 //                layoutManager.invalidateSpanAssignments();
-                invokeCheckForGaps();
+//                invokeCheckForGaps();
             }
         });
+
+        prepareData();
+        adapter.notifyItemRangeChanged(0,datas.size());
 
     }
 
@@ -104,16 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 因为所有的TouchEvent都从Activity的dispatchTouchEvent里分发，在调用一次更保险。 但还是有个别情况item移动。 大部分滚动场景是没问题的。
-     */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (recyclerView.isAttachedToWindow()){
-            invokeCheckForGaps();
-        }
-        return super.dispatchTouchEvent(ev);
-    }
+
 
     private void prepareData(){
 
