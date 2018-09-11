@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
      * checkForGaps是在onScrollStateChanged里调用的。可见谷歌开发者知道在滚动时由于回收机制会导致gaps错乱（就是顶端留白），然后写了这么个方法去检查弥补
      * 但光在onScrollStateChanged里调用是不够的，滚动时还是会跳动切换，所以onScrolled里也要调用
      *
-     * 这都是弥补措施，如果要从根本解决，就是自己写个StaggeredGridLayoutManager，目前在GitHub上没发现有专门解决这个的
+     * 这都是弥补措施。使用ScaleImageView替代原生ImageView能够更好的解决
      */
     private void invokeCheckForGaps(){
         Class stag = layoutManager.getClass();
